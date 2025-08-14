@@ -1,0 +1,32 @@
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using Restaurants.Application.Users;
+using Restaurants.Domain.Entities;
+using Restaurants.Domain.Repositories;
+
+namespace Restaurants.Application.Restaurants.Commands.CreateRestaurant
+{
+    public class CreateRestaurantHandler(ILogger<CreateRestaurantHandler> logger, 
+        IMapper mapper,
+        IRestaurantsRepository restaurantRepository,
+        IUserContext userContext) : IRequestHandler<CreateRestaurantCommand, int>
+    {
+        public async Task<int> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
+        {
+            var currentUser = userContext.GetCurrentUser();
+
+            logger.LogInformation("{UserEmail} [{UserId}] is creating a new {@restaurant}",
+                currentUser.Email,
+                currentUser.Id,
+                request);
+
+            var restaurant = mapper.Map<Restaurant>(request);
+            restaurant.OwnerId = currentUser.Id;
+
+            int id = await restaurantRepository.CreateAsync(restaurant);
+
+            return id;
+        }
+    }
+}

@@ -1,0 +1,98 @@
+@host = http://localhost
+@port = 5000
+@token = CfDJ8B52u_nfKPZLo23e8s6hUlUM2IvxUah__OXuVv-WuxTomQbrHSzFbfyO4WgzBuzJryVdTdrbLww6IYyjBsZDpSSfhdyxzCxyGGdfamESG_qAaU3NV3rv92QPndhN2WdJ-7sIZZq3mjPyGhA8r1jA69HfkMiKP3-_5QxYHXu90ocuVe3ou8Nmr-lHW2mO1geKTPRLKJRm6tjmSFA4JdqVJgCY07d2Vki4BK58XIKWwmwx0ZyR020UJ9yjtSY4_QEqIH6n9NsA8UgUpcn6ysYbOQnYcdiLjt2cfidjDGoDuTQzz6b1jToMmYb2j5pEXnSRwmRa2GIhVhX2EkW_x_MvOyFeVUbUPYX0M_VmCbdF6Mb2rRN1GYXIshWYD96B3LhnlIula9tch0WsEkpolB6Xd7t9TMw1ew5oFMnkvg1rEEEs0VkzvERaPUYJMU2Fj_0G4-Zfh1aWk3si35F2TrtwHoISdnK9EWVdgTdf6pB3MUee2HKXxgoXboK14fF24tThlsyYWSi-WQq9WVUQEZ3_F-9knxBGrYBDsy_n9-TzqrrvQD9bw903BxlrnUG3SA1d5NPnhhTEruHOIG2LfC-cep5E3AwuAupMcnY4c9n0ZGtAN6VaP0gA4zV3VRtW-RXzmxIvAieT0WWz_8uH7vseuVkJ0gTVIz7PGkd18_Oxkb-FDA92TdnxQx5mOa4XeQWlghYeCifspZXgpCLBDa0dEBFhSO7Qg5BUFKeohIQR15WtDK37dU_Y1-Xg5LF6wTo1lY4nrRe0AgCiLZM7anBJWpElUu5pKPOX42hYhslstXWV
+
+@Restaurants.API_HostAddress = {{host}}:{{port}}
+
+
+#RESTAURANTS ENDPOINTS
+GET {{Restaurants.API_HostAddress}}/api/restaurants?searchPhrase=&pageSize=5&pageNumber=1&sortBy=Name
+#Authorization: Bearer {{token}}
+
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants/4
+Authorization: Bearer {{token}}
+###
+
+POST {{Restaurants.API_HostAddress}}/api/restaurants
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "Name": "Owner Restaurant test",
+  "Description": "A cozy restaurant servin international cuisine",
+  "Category": "International cuisine",
+  "HasDelivery": false,
+  "ContactEmail": "info@test.com",
+  "ContactNumber": "555-321-7654",
+  "City": "New York",
+  "Street": "5th Avenue",
+  "PostalCode": "54-321"
+}
+
+###
+
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/7
+
+###
+
+PATCH {{Restaurants.API_HostAddress}}/api/restaurants/8
+Content-Type: application/json
+
+{
+  "Name": "probando",
+  "Description": "This is a Patch test",
+  "HasDelivery": true
+}
+
+###
+
+#DISHES ENDPOINTS
+
+POST {{Restaurants.API_HostAddress}}/api/restaurants/8/dishes
+Content-Type: application/json
+
+{
+  "Name": "Spaghetti Alfredo test",
+  "Description": "Italian Dish with Pesto sauce.",
+  "Price" : 15.50,
+  "KiloCalories": 600
+}
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants/8/dishes
+
+###
+
+GET {{Restaurants.API_HostAddress}}/api/restaurants/8/dishes/8
+
+###
+
+DELETE {{Restaurants.API_HostAddress}}/api/restaurants/3/dishes
+
+###
+
+#IDENTITY ENDPOINTS
+
+POST {{Restaurants.API_HostAddress}}/api/identity/register
+Content-Type: application/json
+
+{
+  "email" : "user@test.com",
+  "password" : "Password1!" 
+}
+
+###
+
+POST {{Restaurants.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+
+{
+  "email" : "owner@test.com",
+  "password" : "Password1!" 
+}
+
+###
